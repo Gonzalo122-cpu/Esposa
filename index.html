@@ -1,266 +1,121 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>¿Quieres ser mi esposa?</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     body {
       margin: 0;
-      padding: 0;
-      font-family: 'Comic Sans MS', cursive;
-      background: linear-gradient(to bottom right, #ffe6f0, #ffd1dc);
-      overflow-x: hidden;
-      transition: background 1s ease;
-    }
-
-    .night-mode {
-      background: #1a1a2e;
-      color: white;
-    }
-
-    h1, .final-message, #countdown {
-      text-align: center;
-      animation: pulse 2s infinite;
-    }
-
-    h1 {
-      color: #d6336c;
-      font-size: 2.8rem;
-      margin-top: 60px;
-    }
-
-    .buttons {
-      width: 100%;
-      height: 200px;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(120deg, #ffd1dc, #ffe4e1);
+      color: #333;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      margin-top: 30px;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    h1 {
+      font-size: 2.5em;
+      text-align: center;
+    }
+    .buttons {
+      margin-top: 20px;
+      display: flex;
+      gap: 20px;
       position: relative;
     }
-
     button {
-      padding: 15px 25px;
-      font-size: 1.2rem;
+      padding: 15px 30px;
+      font-size: 1.2em;
       border: none;
-      border-radius: 12px;
+      border-radius: 10px;
       cursor: pointer;
-      transition: transform 0.3s;
-      margin: 10px;
+      transition: all 0.3s ease;
     }
-
-    #yes {
-      background-color: #28a745;
+    #yesBtn {
+      background-color: #ff69b4;
       color: white;
     }
-
-    #yes:hover {
-      transform: scale(1.1);
-    }
-
-    #no {
-      background-color: #dc3545;
+    #noBtn {
+      background-color: #ffb6c1;
       color: white;
       position: absolute;
     }
-
-    .final-message {
-      display: none;
-      font-size: 2rem;
-      color: #d6336c;
-      margin-top: 40px;
-    }
-
-    .gif {
-      display: block;
-      margin: 20px auto;
-      width: 200px;
-    }
-
-    audio {
-      display: none;
-    }
-
-    .emoji {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      font-size: 20px;
-      animation: floatUp 5s linear infinite;
-    }
-
-    @keyframes floatUp {
-      0% {
-        bottom: -50px;
-        opacity: 0;
-        transform: translateX(0);
-      }
-      50% {
-        opacity: 1;
-      }
-      100% {
-        bottom: 100%;
-        transform: translateX(100px);
-        opacity: 0;
-      }
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
-
-    #secretMessage {
-      display: none;
+    #message {
+      margin-top: 30px;
+      font-size: 1.5em;
+      color: #c71585;
       text-align: center;
+    }
+    .extra-buttons {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .secret-btn {
+      background-color: #ffd700;
+      color: black;
+    }
+    .gallery {
       margin-top: 20px;
-    }
-
-    #secret {
-      position: absolute;
-      bottom: 30px;
-      right: 30px;
-      background: #ffc107;
-      color: #000;
-      font-weight: bold;
-    }
-
-    #modeToggle {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: #343a40;
-      color: #fff;
-    }
-
-    #gallery {
       display: none;
-      justify-content: center;
-      gap: 15px;
-      flex-wrap: wrap;
-      margin: 30px auto;
+      gap: 10px;
     }
-
-    #gallery img {
-      width: 150px;
-      border-radius: 12px;
-    }
-
-    #countdown {
-      margin-top: 10px;
-      font-size: 1.2rem;
-      color: #555;
-    }
-
-    .typing {
-      font-size: 2rem;
-      margin-top: 20px;
-      white-space: pre-wrap;
+    .gallery img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
   </style>
 </head>
 <body>
-  <h1 id="question">¿Quieres ser mi esposa, mi amor?</h1>
-  <div id="countdown"></div>
-
+  <h1>¿Quieres ser mi esposa?</h1>
   <div class="buttons">
-    <button id="yes">Sí</button>
-    <button id="no">No</button>
+    <button id="yesBtn">Sí</button>
+    <button id="noBtn">No</button>
   </div>
+  <div id="message"></div>
 
-  <div class="final-message" id="finalMessage">
-    <div class="typing" id="typedText"></div>
-    <img src="https://media.giphy.com/media/3oz8xAFtqoOUUrsh7W/giphy.gif" alt="amor" class="gif">
-    <p>Con amor, tu futuro esposo.</p>
+  <div class="extra-buttons">
+    <button class="secret-btn" onclick="showGallery()">¿De verdad me amas?</button>
+    <div id="secretMessage"></div>
+    <div id="gallery" class="gallery">
+      <img src="https://lh3.googleusercontent.com/pw/AP1GczPkBrzny2_M_WnNWB5EqFvkEG-HmqZ6BtAMRE_KpCtfjhGodMYhfUHEPHaEzNeZyM22ZOncbgVuNwE-n3WW4bgIU3RL9G0VPeV3ZT2kSO6tHZnokpE=w2400" alt="foto 1">
+      <img src="https://lh3.googleusercontent.com/pw/AP1GczO0UM6RXCq3LhIwQ-0QCyitOmVMY1L3QBVOTGjoMXvWYcbcOF96L5Daite6lP-12BYaT5IRCwAgX2gsPw63oeUTwXqemebaAigeElNu1-z61dLYlyc=w2400" alt="foto 2">
+      <img src="https://lh3.googleusercontent.com/pw/AP1GczMtdTgZqnyoZPlq92fCfpD2OiWsTuSml5ligbKDzHV6s6voOWMjiTZmkgpXmvSJuEdjSQLx6pIRuIRw1fFb8xUsPlNBSrJBhwi2D8fo7pndhdt-Vr8=w2400" alt="foto 3">
+    </div>
   </div>
-
-  <button id="secret">¿De verdad me amas?</button>
-  <button id="modeToggle">Modo Noche</button>
-
-  <div id="secretMessage">Sabía que escondías más amor por mí. Eres lo mejor que me ha pasado.</div>
-
-  <div id="gallery" class="gallery">
-    <img src="https://placekitten.com/200/200" alt="foto 1">
-    <img src="https://placebear.com/200/200" alt="foto 2">
-    <img src="https://placebeard.it/200x200" alt="foto 3">
-  </div>
-
-  <audio id="music" loop>
-    <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mp3">
-  </audio>
 
   <script>
-    for (let i = 0; i < 30; i++) {
-      const emoji = document.createElement("div");
-      emoji.classList.add("emoji");
-      emoji.textContent = Math.random() > 0.5 ? "❤️" : "💖";
-      emoji.style.left = Math.random() * 100 + "vw";
-      emoji.style.animationDuration = (3 + Math.random() * 5) + "s";
-      document.body.appendChild(emoji);
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    const message = document.getElementById('message');
+    const secretMessage = document.getElementById('secretMessage');
+    const gallery = document.getElementById('gallery');
+
+    yesBtn.onclick = () => {
+      message.innerText = '¡Sabía que dirías que sí! Te amo con todo mi corazón.';
+    };
+
+    noBtn.onmouseover = () => {
+      const x = Math.floor(Math.random() * (window.innerWidth - 100));
+      const y = Math.floor(Math.random() * (window.innerHeight - 100));
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+    };
+
+    function showGallery() {
+      secretMessage.innerText = 'Sabía que escondías más amor por mí. Eres lo mejor que me ha pasado.';
+      gallery.style.display = 'flex';
     }
-
-    const noButton = document.getElementById("no");
-    const yesButton = document.getElementById("yes");
-    const finalMessage = document.getElementById("finalMessage");
-    const typedText = document.getElementById("typedText");
-    const music = document.getElementById("music");
-    const secretBtn = document.getElementById("secret");
-    const secretMsg = document.getElementById("secretMessage");
-    const gallery = document.getElementById("gallery");
-    const modeToggle = document.getElementById("modeToggle");
-    const countdown = document.getElementById("countdown");
-
-    function moveNoButton() {
-      const maxX = window.innerWidth - noButton.offsetWidth;
-      const maxY = window.innerHeight - noButton.offsetHeight;
-      noButton.style.left = Math.random() * maxX + "px";
-      noButton.style.top = Math.random() * maxY + "px";
-    }
-
-    setInterval(moveNoButton, 1200);
-    noButton.addEventListener("mouseover", moveNoButton);
-
-    yesButton.addEventListener("click", () => {
-      document.querySelector(".buttons").style.display = "none";
-      document.getElementById("question").style.display = "none";
-      finalMessage.style.display = "block";
-      typeMessage("¡Sabía que dirías que sí! Te amo con todo mi corazón.");
-      music.play();
-    });
-
-    secretBtn.addEventListener("click", () => {
-      secretMsg.style.display = "block";
-      gallery.style.display = "flex";
-    });
-
-    modeToggle.addEventListener("click", () => {
-      document.body.classList.toggle("night-mode");
-    });
-
-    function typeMessage(text) {
-      let i = 0;
-      const speed = 60;
-      function type() {
-        if (i < text.length) {
-          typedText.innerHTML += text.charAt(i);
-          i++;
-          setTimeout(type, speed);
-        }
-      }
-      type();
-    }
-
-    const weddingDate = new Date("2025-12-20T00:00:00").getTime();
-    setInterval(() => {
-      const now = new Date().getTime();
-      const distance = weddingDate - now;
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      countdown.textContent = `Faltan ${days} días para nuestra boda.`;
-    }, 1000);
   </script>
 </body>
 </html>
