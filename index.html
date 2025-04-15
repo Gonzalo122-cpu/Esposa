@@ -6,27 +6,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>¿Quieres ser mi esposa?</title>
   <style>
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(120deg, #ffd1dc, #ffe4e1);
       color: #333;
+      height: 100vh;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
-      overflow: hidden;
+      position: relative;
     }
     h1 {
       font-size: 2.5em;
       text-align: center;
+      z-index: 1;
     }
     .buttons {
       margin-top: 20px;
       display: flex;
       gap: 20px;
-      position: relative;
+      z-index: 1;
     }
     button {
       padding: 15px 30px;
@@ -50,6 +53,7 @@
       font-size: 1.5em;
       color: #c71585;
       text-align: center;
+      z-index: 1;
     }
     .extra-buttons {
       margin-top: 30px;
@@ -57,6 +61,7 @@
       flex-direction: column;
       align-items: center;
       gap: 10px;
+      z-index: 1;
     }
     .secret-btn {
       background-color: #ffd700;
@@ -66,6 +71,8 @@
       margin-top: 20px;
       display: none;
       gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
     .gallery img {
       width: 120px;
@@ -77,24 +84,40 @@
   </style>
 </head>
 <body>
-  <h1>¿Quieres ser mi esposa?</h1>
+  <div style="position: absolute; top: 10px; right: 10px; background: #fff0f5; padding: 10px 20px; border-radius: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.2); z-index: 10;">
+    <strong>Consejo romántico:</strong> Reproduce esta canción mientras ves esto<br>
+    <a href="https://www.youtube.com/watch?v=3-NTv0CdFCk" target="_blank">Lana Del Rey - Love</a>
+  </div>
+  <h1 id="typing"></h1>
   <div class="buttons">
     <button id="yesBtn">Sí</button>
-    <button id="noBtn">No</button>
   </div>
+  <button id="noBtn">No</button>
   <div id="message"></div>
 
   <div class="extra-buttons">
     <button class="secret-btn" onclick="showGallery()">¿De verdad me amas?</button>
     <div id="secretMessage"></div>
     <div id="gallery" class="gallery">
-      <img src="https://lh3.googleusercontent.com/pw/AP1GczPkBrzny2_M_WnNWB5EqFvkEG-HmqZ6BtAMRE_KpCtfjhGodMYhfUHEPHaEzNeZyM22ZOncbgVuNwE-n3WW4bgIU3RL9G0VPeV3ZT2kSO6tHZnokpE=w2400" alt="foto 1">
-      <img src="https://lh3.googleusercontent.com/pw/AP1GczO0UM6RXCq3LhIwQ-0QCyitOmVMY1L3QBVOTGjoMXvWYcbcOF96L5Daite6lP-12BYaT5IRCwAgX2gsPw63oeUTwXqemebaAigeElNu1-z61dLYlyc=w2400" alt="foto 2">
-      <img src="https://lh3.googleusercontent.com/pw/AP1GczMtdTgZqnyoZPlq92fCfpD2OiWsTuSml5ligbKDzHV6s6voOWMjiTZmkgpXmvSJuEdjSQLx6pIRuIRw1fFb8xUsPlNBSrJBhwi2D8fo7pndhdt-Vr8=w2400" alt="foto 3">
+      <img src="gif1.gif" alt="GIF 1">
+      <img src="gif2.gif" alt="GIF 2">
     </div>
   </div>
 
   <script>
+    const text = "¿Quieres ser mi esposa?";
+    let i = 0;
+    const speed = 100;
+    const typingEl = document.getElementById("typing");
+    function typeWriter() {
+      if (i < text.length) {
+        typingEl.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
+      }
+    }
+    typeWriter();
+    
     const noBtn = document.getElementById('noBtn');
     const yesBtn = document.getElementById('yesBtn');
     const message = document.getElementById('message');
