@@ -289,5 +289,21 @@
   </a>
 </div>
 
+
+<script>
+  const noButton = document.getElementById("noButton");
+  if (noButton) {
+    noButton.addEventListener("mouseover", () => {
+      const maxX = window.innerWidth - noButton.offsetWidth - 20;
+      const maxY = window.innerHeight - noButton.offsetHeight - 20;
+      const randX = Math.floor(Math.random() * maxX);
+      const randY = Math.floor(Math.random() * maxY);
+      noButton.style.position = "absolute";
+      noButton.style.left = randX + "px";
+      noButton.style.top = randY + "px";
+    });
+  }
+</script>
+
 </body>
 </html>
