@@ -145,6 +145,47 @@
       }
     }
   </style>
+
+<style>
+  .typing-container {
+    width: 100%;
+    text-align: center;
+    margin-top: 50px;
+  }
+  .typing-text {
+    font-family: 'Courier New', monospace;
+    font-size: 1.2em;
+    color: #6d376d;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 2px solid #6d376d;
+    width: 0;
+    animation: typing 4s steps(60, end) forwards, blink 0.75s step-end infinite;
+  }
+  @keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+  @keyframes blink {
+    from, to { border-color: transparent }
+    50% { border-color: #6d376d; }
+  }
+</style>
+<div class="typing-container">
+  <div class="typing-text">“You’re my religion, you’re how I’m living…” — Lana Del Rey</div>
+</div>
+
+
+<style>
+  .button-container {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    flex-wrap: wrap;
+  }
+</style>
+
 </head>
 <body>
 
