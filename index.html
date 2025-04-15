@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>¿Quieres ser mi esposa?</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Sans MS', cursive;
+      background: linear-gradient(to bottom right, #ffe6f0, #ffd1dc);
+      overflow: hidden;
+    }
+
+    h1 {
+      color: #d6336c;
+      font-size: 2.8rem;
+      text-align: center;
+      margin-top: 60px;
+      animation: pulse 2s infinite;
+    }
+
+    .buttons {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 30px;
+    }
+
+    button {
+      position: absolute;
+      padding: 15px 25px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.3s, background-color 0.3s;
+    }
+
+    #yes {
+      background-color: #28a745;
+      color: white;
+    }
+
+    #yes:hover {
+      transform: scale(1.1);
+      background-color: #218838;
+    }
+
+    #no {
+      background-color: #dc3545;
+      color: white;
+      pointer-events: none;
+    }
+
+    .heart, .emoji {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      font-size: 20px;
+      animation: floatUp 5s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% {
+        bottom: -50px;
+        opacity: 0;
+        transform: translateX(0);
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        bottom: 100%;
+        transform: translateX(100px);
+        opacity: 0;
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .final-message {
+      display: none;
+      text-align: center;
+      font-size: 2rem;
+      color: #d6336c;
+      margin-top: 40px;
+    }
+
+    .gif {
+      display: block;
+      margin: 20px auto;
+      width: 200px;
+    }
+
+    audio {
+      display: none;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    #secret {
+      position: absolute;
+      bottom: 30px;
+      right: 30px;
+      background: #ffc107;
+      color: #000;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1 id="question">¿Quieres ser mi esposa, mi amor?</h1>
+
+  <div class="buttons" id="button-container">
+    <button id="yes">Sí</button>
+    <button id="no">No</button>
+  </div>
+
+  <div class="final-message" id="finalMessage">
+    ¡Sabía que dirías que sí! Te amo con todo mi corazón.<br>
+    <img src="https://media.giphy.com/media/3oz8xAFtqoOUUrsh7W/giphy.gif" alt="amor" class="gif">
+    <p>Con amor, Tu futuro esposo.</p>
+  </div>
+
+  <button id="secret">¿De verdad me amas?</button>
+  <div id="secretMessage" class="final-message hidden">Sabía que escondías más amor por mí. Eres lo mejor que me ha pasado.</div>
+
+  <audio id="music" loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mp3">
+  </audio>
+
+  <script>
+    for (let i = 0; i < 30; i++) {
+      const emoji = document.createElement("div");
+      emoji.classList.add("emoji");
+      emoji.textContent = Math.random() > 0.5 ? "❤️" : "😍";
+      emoji.style.left = Math.random() * 100 + "vw";
+      emoji.style.animationDuration = (3 + Math.random() * 5) + "s";
+      document.body.appendChild(emoji);
+    }
+
+    const noButton = document.getElementById("no");
+    const yesButton = document.getElementById("yes");
+    const container = document.getElementById("button-container");
+    const question = document.getElementById("question");
+    const finalMessage = document.getElementById("finalMessage");
+    const secretBtn = document.getElementById("secret");
+    const secretMsg = document.getElementById("secretMessage");
+    const music = document.getElementById("music");
+
+    function moveNoButton() {
+      const maxX = window.innerWidth - noButton.offsetWidth;
+      const maxY = window.innerHeight - noButton.offsetHeight;
+      const newX = Math.random() * maxX;
+      const newY = Math.random() * maxY;
+      noButton.style.left = newX + "px";
+      noButton.style.top = newY + "px";
+    }
+
+    setInterval(moveNoButton, 1500);
+
+    noButton.addEventListener("mouseover", moveNoButton);
+
+    yesButton.addEventListener("click", () => {
+      container.classList.add("hidden");
+      question.classList.add("hidden");
+      finalMessage.style.display = "block";
+      music.play();
+    });
+
+    secretBtn.addEventListener("click", () => {
+      secretMsg.classList.remove("hidden");
+    });
+  </script>
+</body>
+</html>
